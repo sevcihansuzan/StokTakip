@@ -1,0 +1,156 @@
+﻿<Page x:Class="SideBar_Nav.Pages.SatisYonetimi"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SideBar_Nav.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="1600"
+      Title="SatisYonetimi">
+
+    <Grid>
+        <!-- ARKA PLAN: Image -->
+        <Image Source="/Images/marble.jpg"
+               Grid.RowSpan="4"
+               Stretch="Fill"
+               IsHitTestVisible="False"
+               Panel.ZIndex="-1"
+               RenderOptions.BitmapScalingMode="HighQuality"
+               SnapsToDevicePixels="True"
+               UseLayoutRounding="True">
+            <Image.CacheMode>
+                <BitmapCache/>
+            </Image.CacheMode>
+        </Image>
+
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <!-- Başlık -->
+                <RowDefinition Height="Auto"/>
+                <!-- Filtre Alanı -->
+                <RowDefinition Height="Auto"/>
+                <!-- Rezervasyonlar -->
+                <RowDefinition Height="*"/>
+                <!-- Detaylar -->
+                <RowDefinition Height="*"/>
+                <!-- İşlem Butonları -->
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- 📌 Sayfa Başlığı -->
+            <TextBox Grid.Row="0"
+                     Text="SATIŞ YÖNETİMİ"
+                     FontSize="26"
+                     FontWeight="Bold"
+                     HorizontalAlignment="Left"
+                     Margin="0,10,0,20"
+                     BorderThickness="0"
+                     Background="Transparent"
+                     Foreground="Black"
+                     IsReadOnly="True"
+                     TextAlignment="Center"/>
+
+            <!-- 🔎 Filtre Alanları -->
+            <Border Grid.Row="1" Background="White" BorderBrush="#B197FC" BorderThickness="2" CornerRadius="5" Margin="0,0,0,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,10">
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="Rezervasyon No:" FontWeight="Bold"/>
+                        <TextBox x:Name="txtFiltreNo" Width="140" Height="20"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="Rezervasyon Kodu:" FontWeight="Bold"/>
+                        <TextBox x:Name="txtFiltreKodu" Width="140" Height="20"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="Alıcı Firma:" FontWeight="Bold"/>
+                        <ComboBox x:Name="txtFiltreFirma"
+                          Width="140"
+                          Height="20"
+                          IsEditable="True"
+                          StaysOpenOnEdit="True"
+                          IsTextSearchEnabled="False"
+                          KeyUp="CmbAliciFirma_KeyUp" />
+                    </StackPanel>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="Rezervasyon Sorumlusu:" FontWeight="Bold"/>
+                        <TextBox x:Name="txtFiltreRezSorumlu" Width="140" Height="20"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="Satış Sorumlusu:" FontWeight="Bold"/>
+                        <TextBox x:Name="txtFiltreSorumlu" Width="140" Height="20"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="Rezervasyon Tarihi" FontWeight="Bold"/>
+                        <DatePicker x:Name="dateFiltreTarih" Width="150"  />
+                    </StackPanel>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="Tarih Periyodu" FontWeight="Bold"/>
+                        <ComboBox x:Name="cmbTarihSecimi" Width="140" SelectionChanged="cmbTarihSecimi_SelectionChanged">
+                            <ComboBoxItem Content="Günlük" />
+                            <ComboBoxItem Content="Haftalık" />
+                            <ComboBoxItem Content="Aylık" />
+                            <ComboBoxItem Content="Yıllık" />
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="Durum:" FontWeight="Bold"/>
+                        <ComboBox x:Name="cmbDurumFiltre" Width="140">
+                            <ComboBoxItem Content="Hepsi" IsSelected="True"/>
+                            <ComboBoxItem Content="Onay Bekliyor"/>
+                            <ComboBoxItem Content="Onaylandı"/>
+                            <ComboBoxItem Content="Sevkiyat Tamamlandı"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <Button Content="Filtreleri Temizle" Height="20" Click="BtnFiltreSifirla_Click" Margin="5,16,5,5" Width="100"/>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="EPC:" FontWeight="Bold"/>
+                        <TextBox x:Name="txtFiltreEPC" Width="160" Height="20"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- 📋 Rezervasyonlar -->
+            <GroupBox Header="Rezervasyonlar" Grid.Row="2" Margin="0,10,0,10">
+                <Border BorderBrush="#B197FC" BorderThickness="2" CornerRadius="5" Margin="0,0,0,0">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#B197FC" BlurRadius="6" ShadowDepth="1"/>
+                    </Border.Effect>
+                    <DataGrid x:Name="dataGridRezervasyonlar" SelectionChanged="dataGridRezervasyonlar_SelectionChanged"
+                      AutoGenerateColumns="True" IsReadOnly="True"/>
+                </Border>
+            </GroupBox>
+
+            <!-- 📦 Detaylar -->
+            <GroupBox Header="Rezervasyon Detayları" Grid.Row="3" Margin="0,10,0,10">
+                <Border BorderBrush="#B197FC" BorderThickness="2" CornerRadius="5" Margin="0,0,0,0">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#B197FC" BlurRadius="6" ShadowDepth="1"/>
+                    </Border.Effect>
+                    <DataGrid x:Name="dataGridDetaylar" AutoGenerateColumns="True" IsReadOnly="True"/>
+                </Border>
+            </GroupBox>
+
+            <!-- ✅ İşlem Butonları -->
+            <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Right" Margin="0,10,0,0" >
+                <Button Content="PDF Rapor Oluştur" Width="170" Click="BtnPdfRapor_Click" Margin="10,0,0,0" />
+                <Button Content="Packing List"  Width="180" Click="BtnPackingList_Click" Margin="10,0,0,0" />
+                <Button Content="Seçili Rezervasyona Ürün Ekle"  Width="180" Click="BtnUrunEkle_Click" Margin="10,0,0,0"  />
+                <Button Content="Seçili Ürünü Rezervasyondan Çıkar" Width="200" Click="BtnUrunCikar_Click" Margin="10,0,0,0"/>
+                <Button Content="Boyutları Güncelle" Width="150" Click="BtnBoyutGuncelle_Click" Margin="10,0,0,0"/>
+                <Button Content="Rezervasyonu İptal Et" Width="150" Click="BtnIptalEt_Click" Margin="10,0,0,0"/>
+                <!-- <Button Content="Rezervasyon Sil" Width="150" Click="BtnRezervasyonSil_Click" Margin="10,0,0,0"/> -->
+                <Button Content="Rezervasyonu Onayla" Width="150" Click="BtnOnayla_Click" Margin="10,0,0,0"/>
+                <Button Content="Onayı Geri Al" Width="150" Click="BtnOnayiGeriAl_Click" Margin="10,0,0,0" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

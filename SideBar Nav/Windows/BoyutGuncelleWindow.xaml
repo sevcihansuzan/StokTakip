@@ -1,0 +1,63 @@
+﻿<Window x:Class="SideBar_Nav.Windows.BoyutGuncelleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStartupLocation="CenterScreen"
+        BorderBrush="#FFB197FC" BorderThickness="1" 
+        
+        Title="Satış Boyutları Güncelleme Ekranı" Height="400" Width="350">
+
+    <Grid>
+        <Grid Margin="20,20,20,89">
+            <Grid.RowDefinitions>
+                <!-- Alan satırları -->
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Satır 0 -->
+            <TextBlock Text="Stok En:" Grid.Row="0" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtStokEn" Grid.Row="0" Grid.Column="1" Margin="5" IsReadOnly="True"/>
+
+            <!-- Satır 1 -->
+            <TextBlock Text="Stok Boy:" Grid.Row="1" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtStokBoy" Grid.Row="1" Grid.Column="1" Margin="5" IsReadOnly="True"/>
+
+            <TextBlock Text="Stok Alan:" Grid.Row="2" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtStokAlan" Grid.Row="2" Grid.Column="1" Margin="5" IsReadOnly="True"/>
+
+            <TextBlock Text="Stok Tonaj:" Grid.Row="3" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtStokTonaj" Grid.Row="3" Grid.Column="1" Margin="5" IsReadOnly="True"/>
+
+            <TextBlock Text="Satış En:" Grid.Row="4" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtSatisEn" Grid.Row="4" Grid.Column="1" Margin="5" TextChanged="AlanTonajOtomatikHesapla"/>
+
+            <!-- Satır 1 -->
+            <TextBlock Text="Satış Boy:" Grid.Row="5" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtSatisBoy" Grid.Row="5" Grid.Column="1" Margin="5" TextChanged="AlanTonajOtomatikHesapla"/>
+
+            <TextBlock Text="Satış Alan:" Grid.Row="6" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtSatisAlan" Grid.Row="6" Grid.Column="1" Margin="5" IsReadOnly="True"/>
+
+            <TextBlock Text="Satış Tonaj:" Grid.Row="7" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtSatisTonaj" Grid.Row="7" Grid.Column="1" Margin="5" IsReadOnly="True"/>
+
+        </Grid>
+        <Grid>
+            <Button Content="Güncelle"  Width="150" Height="20" Margin="75,220,75,50" Click="BtnSatisBoyutKaydet_Click"/>
+        </Grid>
+    </Grid>
+
+
+</Window>

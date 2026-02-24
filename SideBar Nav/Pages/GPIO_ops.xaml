@@ -1,0 +1,105 @@
+﻿<Page x:Class="SideBar_Nav.Pages.GPIO_ops"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      d:DesignHeight="900" d:DesignWidth="1600"
+      Title="GPO Kontrol Paneli"
+      >
+            <Page.Resources>
+            <!-- Modern Button Style -->
+            <Style x:Key="ModernButtonStyle" TargetType="Button">
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Padding" Value="10,5"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="#845AFF"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="#B197FC" BlurRadius="8" ShadowDepth="2"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <!-- Modern ComboBox Style -->
+            <Style x:Key="ModernComboBoxStyle" TargetType="ComboBox">
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="Padding" Value="6,2"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="BorderBrush" Value="#845AFF"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="Background" Value="#F7F8FC"/>
+            </Style>
+        </Page.Resources>
+    <Grid>
+        <!-- ARKA PLAN: Image -->
+        <Image Source="/Images/marble.jpg"
+               Grid.RowSpan="3"
+               Stretch="Fill"
+               IsHitTestVisible="False"
+               Panel.ZIndex="-1"
+               RenderOptions.BitmapScalingMode="HighQuality"
+               SnapsToDevicePixels="True"
+               UseLayoutRounding="True">
+            <Image.CacheMode>
+                <BitmapCache/>
+            </Image.CacheMode>
+        </Image>
+
+
+        <Grid Margin="30">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="1" Background="White" CornerRadius="16" Padding="30">
+                <Border.Effect>
+                    <DropShadowEffect Color="#B197FC" BlurRadius="12" ShadowDepth="2"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="GPO Kontrolü" FontWeight="Bold" FontSize="20" Margin="0,0,0,20" Foreground="Black"/>
+                    <UniformGrid Columns="1" Rows="4" Margin="0,10,0,0">
+                        <!-- GPO 1 -->
+                        <StackPanel Orientation="Horizontal" Margin="0,8">
+                            <TextBlock Text="GPO 1" FontWeight="Bold" Width="80" VerticalAlignment="Center"/>
+
+                            <ComboBox x:Name="cmbGPO1" Width="220" Height="40" Style="{StaticResource ModernComboBoxStyle}" SelectionChanged="cmbGPO1_SelectionChanged"/>
+                        </StackPanel>
+                        <!-- GPO 2 -->
+                        <StackPanel Orientation="Horizontal" Margin="0,8">
+                            <TextBlock Text="GPO 2" FontWeight="Bold" Width="80" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="cmbGPO2" Width="220" Height="40" Style="{StaticResource ModernComboBoxStyle}" SelectionChanged="cmbGPO2_SelectionChanged"/>
+                        </StackPanel>
+                        <!-- GPO 3 -->
+                        <StackPanel Orientation="Horizontal" Margin="0,8">
+                            <TextBlock Text="GPO 3" FontWeight="Bold" Width="80" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="cmbGPO3" Width="220" Height="40" Style="{StaticResource ModernComboBoxStyle}" SelectionChanged="cmbGPO3_SelectionChanged"/>
+                        </StackPanel>
+                        <!-- GPO 4 -->
+                        <StackPanel Orientation="Horizontal" Margin="0,8">
+                            <TextBlock Text="GPO 4" FontWeight="Bold" Width="80" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="cmbGPO4" Width="220" Height="40" Style="{StaticResource ModernComboBoxStyle}" SelectionChanged="cmbGPO4_SelectionChanged"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,8">
+                            <Button x:Name="sıfırla" Content="Sıfırla" Width="100" Height="40" FontSize="20" Click="Sifirla_Click"/>
+                        </StackPanel>
+                    </UniformGrid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+   
+</Page>

@@ -1,0 +1,17 @@
+﻿<Window x:Class="SideBar_Nav.Windows.IptalSebepWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        BorderBrush="#FFB197FC" BorderThickness="1" 
+        Title="İptal Sebebi" Height="300" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock Text="İptal Sebebi:" Margin="0,0,0,5"/>
+            <TextBox x:Name="txtSebep" AcceptsReturn="True" TextWrapping="Wrap" Height="120" VerticalScrollBarVisibility="Auto"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                <Button Content="İptal Et" Width="80" Margin="5" Click="BtnIptal_Click"/>
+                <Button Content="Vazgeç" Width="80" Margin="5" Click="BtnVazgec_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

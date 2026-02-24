@@ -1,0 +1,140 @@
+﻿<Page x:Class="SideBar_Nav.Pages.Iptal"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SideBar_Nav.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Title="Iptal">
+
+    <Grid>
+        <!-- ARKA PLAN: Image -->
+        <Image Source="/Images/marble.jpg"
+               Grid.RowSpan="4"
+               Stretch="Fill"
+               IsHitTestVisible="False"
+               Panel.ZIndex="-1"
+               RenderOptions.BitmapScalingMode="HighQuality"
+               SnapsToDevicePixels="True"
+               UseLayoutRounding="True">
+            <Image.CacheMode>
+                <BitmapCache/>
+            </Image.CacheMode>
+        </Image>
+
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <!-- Başlık -->
+                <RowDefinition Height="Auto"/>
+                <!-- Filtre -->
+                <RowDefinition Height="Auto"/>
+                <!-- Rezervasyonlar -->
+                <RowDefinition Height="*"/>
+                <!-- Detaylar -->
+                <RowDefinition Height="*"/>
+                <!-- İşlem Butonları -->
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <!-- 📌 Sayfa Başlığı -->
+            <TextBox Grid.Row="0"
+                     Text="İPTAL YÖNETİMİ"
+                     FontSize="26"
+                     FontWeight="Bold"
+                     HorizontalAlignment="Left"
+                     Margin="0,10,0,20"
+                     BorderThickness="0"
+                     Background="Transparent"
+                     Foreground="Black"
+                     IsReadOnly="True"
+                     TextAlignment="Center"/>
+
+            <!-- 🔍 Filtre Alanları -->
+            <Border Grid.Row="1" Background="White" BorderBrush="#B197FC" BorderThickness="2" CornerRadius="5">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,10">
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="Rezervasyon No:" FontWeight="Bold"/>
+                        <TextBox x:Name="txtFiltreNo" Width="140"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="Rezervasyon Kodu:" FontWeight="Bold"/>
+                        <TextBox x:Name="txtFiltreKodu" Width="140"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="Alıcı Firma:" FontWeight="Bold"/>
+                        <ComboBox x:Name="txtFiltreFirma"
+                          Width="140"
+                          Height="20"
+                          IsEditable="True"
+                          StaysOpenOnEdit="True"
+                          IsTextSearchEnabled="False"
+                          KeyUp="CmbAliciFirma_KeyUp" />
+                    </StackPanel>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="Satış Sorumlusu:" FontWeight="Bold"/>
+                        <TextBox x:Name="txtFiltreSorumlu" Width="140"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="Rezervasyon Tarihi" FontWeight="Bold"/>
+                        <DatePicker x:Name="dateFiltreTarih" Width="150" />
+                    </StackPanel>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="İptal Tarihi" FontWeight="Bold"/>
+                        <DatePicker x:Name="dateFiltreIptalTarihi" Width="150" />
+                    </StackPanel>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="Tarih Periyodu" FontWeight="Bold"/>
+                        <ComboBox x:Name="cmbTarihSecimi" Width="140" SelectionChanged="cmbTarihSecimi_SelectionChanged">
+                            <ComboBoxItem Content="Günlük" />
+                            <ComboBoxItem Content="Haftalık" />
+                            <ComboBoxItem Content="Aylık" />
+                            <ComboBoxItem Content="Yıllık" />
+                        </ComboBox>
+                    </StackPanel>
+
+                    <Button Content="Filtreleri Temizle" Width="100" Height="25" Click="BtnFiltreTemizle_Click" Margin="10,15,0,0"/>
+
+                    <StackPanel Margin="5,0,0,0">
+                        <TextBlock Text="EPC:" FontWeight="Bold"/>
+                        <TextBox x:Name="txtFiltreEPC" Width="140"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- 📄 Rezervasyonlar -->
+            <GroupBox Header="İptal Edilen Rezervasyonlar" Grid.Row="2" Margin="0,10,0,10">
+                <Border BorderBrush="#B197FC" BorderThickness="2" CornerRadius="5">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#B197FC" BlurRadius="12" ShadowDepth="2"/>
+                    </Border.Effect>
+                    <DataGrid x:Name="dataGridIptal" SelectionChanged="dataGridIptal_SelectionChanged"
+                              AutoGenerateColumns="True" IsReadOnly="True"/>
+                </Border>
+            </GroupBox>
+
+            <!-- 📦 Detaylar -->
+            <GroupBox Header="İptal Detayları" Grid.Row="3" Margin="0,10,0,10">
+                <Border BorderBrush="#B197FC" BorderThickness="2" CornerRadius="5">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#B197FC" BlurRadius="12" ShadowDepth="2"/>
+                    </Border.Effect>
+                    <DataGrid x:Name="dataGridIptalDetay" AutoGenerateColumns="True" IsReadOnly="True"/>
+                </Border>
+            </GroupBox>
+
+            <!-- ✅ İşlem Butonları -->
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                <Button Content="PDF Rapor Oluştur" Width="170" Height="30" Margin="0,0,10,0" Click="BtnPdfRapor_Click"/>
+                <Button Content="İptal Sebebi" Width="150" Height="30" Margin="0,0,10,0" Click="BtnSebepGoster_Click"/>
+                <Button Content="Seçili İptal Kaydını Sil" Width="200" Height="30" Click="BtnSil_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

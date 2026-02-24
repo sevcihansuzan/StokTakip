@@ -1,0 +1,79 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>SideBar_Nav</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+	<ApplicationIcon>Images\favicon.ico</ApplicationIcon>
+	  <!-- Tek dosya -->
+	  <PublishSingleFile>true</PublishSingleFile>
+	  <PublishTrimmed>false</PublishTrimmed>
+
+	  <!-- Native DLL’leri EXE’nin içine koy, çalışırken %TEMP%’e çıkar -->
+	  <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+
+	  <!-- (İsteğe bağlı) tek dosyayı sıkıştır -->
+	  <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+
+	  <!-- Release’te pdb üretme -->
+	  <DebugType>none</DebugType>
+	  <!-- EXE adı -->
+	  <AssemblyName>StokTakipAFSUAM</AssemblyName>
+	  <TargetName>StokTakipAFSUAM</TargetName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\BlackMarble.jpg" />
+    <None Remove="Images\favicon.ico" />
+    <None Remove="Images\loginImage.png" />
+    <None Remove="Images\logo.png" />
+    <None Remove="Images\logo_eee.jpg" />
+    <None Remove="Images\marble.jpg" />
+    <None Remove="Images\tittleBarVideo.mp4" />
+    <None Remove="Pages\loginImage.png" />
+	<PackageVersion Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.104.2" />
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="MQTTnet" Version="3.0.16" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="OctaneSDK" Version="5.0.0" />
+    <PackageReference Include="OxyPlot.Wpf" Version="2.2.0" />
+    <PackageReference Include="PDFsharp-GDI" Version="6.2.0" />
+    <PackageReference Include="Supabase" Version="1.1.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+    <PackageReference Include="System.IO.Ports" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\BlackMarble.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\favicon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\loginImage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\logo_eee.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\marble.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\" />
+  </ItemGroup>
+
+</Project>

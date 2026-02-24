@@ -1,0 +1,37 @@
+﻿<Window x:Class="SideBar_Nav.Windows.UrunRezervasyonBilgisi"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SideBar_Nav.Windows"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        BorderBrush="#FFB197FC" BorderThickness="1" 
+        Title="UrunRezervasyonBilgisi" Height="450" Width="800">
+    <Grid>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Vertical" Margin="0,0,0,10">
+                <TextBlock Text="Rezervasyon Bilgisi" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Rezervasyon No: " FontWeight="Bold"/>
+                    <TextBlock x:Name="lblRezNo"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Alıcı Firma: " FontWeight="Bold"/>
+                    <TextBlock x:Name="lblFirma"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Durum: " FontWeight="Bold"/>
+                    <TextBlock x:Name="lblDurum"/>
+                </StackPanel>
+            </StackPanel>
+
+            <DataGrid x:Name="dataGridUrunler" Grid.Row="1" AutoGenerateColumns="True" FontSize="14"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,135 @@
+﻿<Page x:Class="SideBar_Nav.Pages.StokYonetimi"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SideBar_Nav.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Title="StokYonetimi">
+
+    <Grid>
+        <!-- ARKA PLAN: Image -->
+        <Image Source="/Images/marble.jpg"
+               Grid.RowSpan="3"
+               Stretch="Fill"
+               IsHitTestVisible="False"
+               Panel.ZIndex="-1"
+               RenderOptions.BitmapScalingMode="HighQuality"
+               SnapsToDevicePixels="True"
+               UseLayoutRounding="True">
+            <Image.CacheMode>
+                <BitmapCache/>
+            </Image.CacheMode>
+        </Image>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/> <!-- Başlık -->
+                <RowDefinition Height="Auto"/> <!-- Filtre paneli -->
+                <RowDefinition Height="*"/>   <!-- DataGrid -->
+                <RowDefinition Height="Auto"/> <!-- Butonlar -->
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Stok Yönetimi" FontSize="24" FontWeight="Bold" Grid.Row="0" Margin="0,0,0,10"/>
+
+            <!-- FILTRE PANELI -->
+            <Border Grid.Row="1" BorderBrush="#B197FC" BorderThickness="2" Padding="5" CornerRadius="5" Background="White" Margin="0,0,0,10">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,10">
+                    <StackPanel Margin="5">
+                        <TextBlock Text="EPC" FontWeight="Bold"/>
+                        <TextBox x:Name="txtFiltreEPC" Width="160"/>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Barkod" FontWeight="Bold"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                            <TextBox x:Name="txtFiltreBarkod" Width="100"/>
+                            <Button x:Name="btnFiltreBarkodOkuStok" Content="Barkodu Oku" Margin="5,0,0,0" Click="BtnFiltreBarkodOkuStok_Click"/>
+                        </StackPanel>
+                        <TextBlock x:Name="txtBarcodeStatusStok" Text="Barkod okuyucu: Kapalı" Foreground="DarkRed" FontSize="12"/>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Bandıl No" FontWeight="Bold"/>
+                        <TextBox x:Name="txtFiltreBandil" Width="100"/>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Üretim Tarihi" FontWeight="Bold"/>
+                        <DatePicker x:Name="dateFiltreTarih" Width="150"/>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Tarih Periyodu" FontWeight="Bold"/>
+                        <ComboBox x:Name="cmbTarihSecimi" Width="130" SelectionChanged="cmbTarihSecimi_SelectionChanged">
+                            <ComboBoxItem Content="Günlük" />
+                            <ComboBoxItem Content="Haftalık" />
+                            <ComboBoxItem Content="Aylık" />
+                            <ComboBoxItem Content="Yıllık" />
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                         <TextBlock Text="Plaka No" FontWeight="Bold"/>
+                         <TextBox x:Name="txtFiltrePlaka" Width="80" Height="20"  Margin="0,0,5,0"/>
+                    </StackPanel>
+
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Ürün Tipi" FontWeight="Bold"/>
+                        <ComboBox x:Name="cmbUrunTipiFiltre" Width="100" Margin="0,0,5,0">
+                            <ComboBoxItem>Hepsi</ComboBoxItem>
+                            <ComboBoxItem>Yarı Mamül</ComboBoxItem>
+                            <ComboBoxItem>Bitmiş Mamül</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Ürün Türü" FontWeight="Bold"/>
+                        <ComboBox x:Name="cmbUrunTuruFiltre" Width="100" Margin="0,0,5,0">
+                            <ComboBoxItem>Hepsi</ComboBoxItem>
+                            <ComboBoxItem>Granit</ComboBoxItem>
+                            <ComboBoxItem>Mermer</ComboBoxItem>
+                            <ComboBoxItem>Traverten</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Yüzey İşlemi" FontWeight="Bold"/>
+                        <ComboBox x:Name="cmbYuzeyIslemFiltre" Width="100" Margin="0,0,5,0">
+                            <ComboBoxItem>Hepsi</ComboBoxItem>
+                            <ComboBoxItem>Polished</ComboBoxItem>
+                            <ComboBoxItem>Honed</ComboBoxItem>
+                            <ComboBoxItem>Tumbled</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+
+
+                    <StackPanel Margin="5">
+                        <TextBlock Text="Durum ile Filtrele" FontWeight="Bold"/>
+                        <ComboBox x:Name="cmbDurumFiltre" Width="150" SelectionChanged="cmbDurumFiltre_SelectionChanged">
+                            <ComboBoxItem Content="Hepsi" IsSelected="True"/>
+                            <ComboBoxItem Content="Stokta"/>
+                            <ComboBoxItem Content="Onay Bekliyor"/>
+                            <ComboBoxItem Content="Onaylandı"/>
+                            <ComboBoxItem Content="Sevkiyat Tamamlandı"/>
+                        </ComboBox>
+
+                    </StackPanel>
+                    <Button Content="Filtreleri Temizle" Height="20" Click="BtnFiltreSifirla_Click" Margin="5,16,5,5" Width="100"/>
+                </StackPanel>
+            </ScrollViewer>
+            </Border>
+            <Border Grid.Row="2">
+                <Border.Effect>
+                    <DropShadowEffect Color="#B197FC" BlurRadius="12" ShadowDepth="2"/>
+                </Border.Effect>
+                <DataGrid x:Name="dataGridStok" AutoGenerateColumns="True"
+                  IsReadOnly="True" SelectionMode="Single" SelectionChanged="dataGridStok_SelectionChanged"
+                  Margin="0,0,0,10" FontSize="14"/>
+            </Border>
+
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Stok Raporu" Width="120" Click="BtnStokRaporu_Click" Margin="0,0,5,0"/>
+                <Button Content="Ürün Güncelle" Width="100" Click="btnUrunGuncelle_Click" Margin="0,0,5,0"/>
+                <Button Content="Sil" Width="100" Click="btnSil_Click" Margin="0,0,5,0"/>
+                <Button Content="Rezervasyon Bilgisi" Width="160" Click="btnRezervasyonBilgisi_Click" Margin="0,0,5,0"/>
+                <Button Content="Yenile" Width="100" Click="btnYenile_Click" Margin="0,0,5,0"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

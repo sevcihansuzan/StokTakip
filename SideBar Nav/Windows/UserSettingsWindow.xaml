@@ -1,0 +1,277 @@
+<Window x:Class="SideBar_Nav.Windows.UserSettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Gelişmiş Ayarlar"
+        Height="800"
+        Width="1200"
+        BorderBrush="#FFB197FC" BorderThickness="1"
+        WindowStartupLocation="CenterOwner">
+    <Grid Background="#f1f3f5">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="20" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Text="User Settings"
+                       HorizontalAlignment="Center"
+                       FontFamily="Segoe UI"
+                       FontSize="35"
+                       FontWeight="ExtraBold"
+                       Foreground="#4B0082"
+                       Margin="0,10,0,20"/>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                    <Border BorderBrush="#FFB197FC" BorderThickness="1" CornerRadius="6" Padding="8" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Text="Reader Configuration"
+                                       FontSize="14"
+                                       FontWeight="Bold"
+                                       Foreground="#FFB197FC"
+                                       Margin="0,0,0,6"/>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Content="Reader Mode:" FontSize="12" Grid.Row="0" Grid.Column="0" Margin="0,2"/>
+                                <ComboBox x:Name="cmbRfMode" Width="180" Height="22" Grid.Row="0" Grid.Column="1" Margin="8,2"/>
+
+                                <Label Content="Search Mode:" FontSize="12" Grid.Row="1" Grid.Column="0" Margin="0,2"/>
+                                <ComboBox x:Name="cmbSearchMode" Width="180" Height="22" Grid.Row="1" Grid.Column="1" Margin="8,2"/>
+
+                                <Label Content="Report Mode:" FontSize="12" Grid.Row="2" Grid.Column="0" Margin="0,2"/>
+                                <ComboBox x:Name="cmbReportMode" Width="180" Height="22" Grid.Row="2" Grid.Column="1" Margin="8,2"/>
+
+                                <Label Content="Session:" FontSize="12" Grid.Row="3" Grid.Column="0" Margin="0,2"/>
+                                <ComboBox x:Name="cmbSession" Width="180" Height="22" Grid.Row="3" Grid.Column="1" Margin="8,2"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border BorderBrush="#FFB197FC" BorderThickness="1" CornerRadius="6" Padding="8" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Text="Tag Report Settings" FontSize="14" FontWeight="Bold" Foreground="#FFB197FC" Margin="0,0,0,6"/>
+                            <UniformGrid Columns="2" Rows="5" Margin="0,4" HorizontalAlignment="Left">
+                                <Label Content="Seen Count" FontSize="12"/>
+                                <CheckBox x:Name="chkSeenCount" VerticalAlignment="Center"/>
+                                <Label Content="First Seen Time" FontSize="12"/>
+                                <CheckBox x:Name="chkFirstSeenTime" VerticalAlignment="Center"/>
+                                <Label Content="LastSeen Time" FontSize="12"/>
+                                <CheckBox x:Name="chkLastSeenTime" VerticalAlignment="Center"/>
+                                <Label Content="PeakRSSI" FontSize="12"/>
+                                <CheckBox x:Name="chkPeakRssi" VerticalAlignment="Center"/>
+                                <Label Content="Phase Angle" FontSize="12"/>
+                                <CheckBox x:Name="chkPhaseAngle" VerticalAlignment="Center"/>
+                            </UniformGrid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border BorderBrush="#FFB197FC" BorderThickness="1" CornerRadius="6" Padding="8">
+                        <GroupBox>
+                            <StackPanel>
+                                <TextBlock Text="Antenna Configuration" FontSize="14" FontWeight="Bold" Foreground="#FFB197FC" Margin="0,0,0,6"/>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="Antenna" Grid.Row="0" Margin="6"/>
+                                    <Label Content="Rx Sensivity(dBm)" Grid.Row="0" Grid.Column="1" Margin="6"/>
+                                    <Label Content="Tx Power(dBm)" Grid.Row="0" Grid.Column="2" Margin="6"/>
+                                    <Label Content="Antenna Name" Grid.Row="0" Grid.Column="3" Margin="100,6,0,0"/>
+
+                                    <CheckBox x:Name="chkAntenna1" Grid.Row="1" Grid.Column="0" Content="Port 1" Margin="6" IsChecked="True"/>
+                                    <ComboBox x:Name="cmbRx1" Grid.Row="1" Grid.Column="1" Width="80" Margin="6"/>
+                                    <ComboBox x:Name="cmbTx1" Grid.Row="1" Grid.Column="2" Width="80" Margin="6"/>
+                                    <TextBox x:Name="txtAntennaName1" Grid.Row="1" Grid.Column="3" Width="150" Margin="6" />
+
+                                    <CheckBox x:Name="chkAntenna2" Grid.Row="2" Grid.Column="0" Content="Port 2" Margin="6"/>
+                                    <ComboBox x:Name="cmbRx2" Grid.Row="2" Grid.Column="1" Width="80" Margin="6"/>
+                                    <ComboBox x:Name="cmbTx2" Grid.Row="2" Grid.Column="2" Width="80" Margin="6"/>
+                                    <TextBox x:Name="txtAntennaName2" Grid.Row="2" Grid.Column="3" Width="150" Margin="6" />
+
+                                    <CheckBox x:Name="chkAntenna3" Grid.Row="3" Grid.Column="0" Content="Port 3" Margin="6"/>
+                                    <ComboBox x:Name="cmbRx3" Grid.Row="3" Grid.Column="1" Width="80" Margin="6"/>
+                                    <ComboBox x:Name="cmbTx3" Grid.Row="3" Grid.Column="2" Width="80" Margin="6"/>
+                                    <TextBox x:Name="txtAntennaName3" Grid.Row="3" Grid.Column="3" Width="150" Margin="6" />
+
+                                    <CheckBox x:Name="chkAntenna4" Grid.Row="4" Grid.Column="0" Content="Port 4" Margin="6"/>
+                                    <ComboBox x:Name="cmbRx4" Grid.Row="4" Grid.Column="1" Width="80" Margin="6"/>
+                                    <ComboBox x:Name="cmbTx4" Grid.Row="4" Grid.Column="2" Width="80" Margin="6"/>
+                                    <TextBox x:Name="txtAntennaName4" Grid.Row="4" Grid.Column="3" Width="150" Margin="6" />
+                                </Grid>
+                            </StackPanel>
+                        </GroupBox>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <Border BorderBrush="#FFB197FC" BorderThickness="1" CornerRadius="6" Padding="8">
+                        <StackPanel Margin="1">
+                            <GroupBox Margin="5">
+                                <StackPanel Margin="10">
+                                    <TextBlock Text="EPC Filtering" FontSize="14" FontWeight="Bold" Foreground="#FFB197FC" Margin="0,0,0,6"/>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="200"/>
+                                            <ColumnDefinition Width="200"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <CheckBox x:Name="chkEPCEnableFiltering" Grid.Row="0" Grid.Column="0" Content="Activate EPC Filtering" Margin="0,10"/>
+                                        <TextBlock Text="EPC Filter Mask (example: 6000)" Grid.Row="1" Grid.Column="0" Margin="0,5"/>
+                                        <TextBox x:Name="txtEpcMask" Grid.Row="1" Grid.Column="1" Margin="0,5"/>
+                                        <TextBlock Text="EPC Bit Pointer (example: 32)" Grid.Row="2" Grid.Column="0" Margin="0,5"/>
+                                        <TextBox x:Name="txtEpcBitPointer" Grid.Row="2" Grid.Column="1" Margin="0,5"/>
+                                        <TextBlock Text="EPC Bit Count (example: 16)" Grid.Row="3" Grid.Column="0" Margin="0,5"/>
+                                        <TextBox x:Name="txtEpcBitCount" Grid.Row="3" Grid.Column="1" Margin="0,5"/>
+
+                                        <CheckBox x:Name="chkUserMemoryEnableFiltering" Grid.Row="4" Grid.ColumnSpan="2" Content="Activate User Memory Filtering" Margin="0,10"/>
+                                        <TextBlock Text="User Filter Mask (example: 80)" Grid.Row="5" Grid.Column="0" Margin="0,5"/>
+                                        <TextBox x:Name="txtUserMask" Grid.Row="5" Grid.Column="1" Margin="0,5"/>
+                                        <TextBlock Text="User Bit Pointer (example: 2)" Grid.Row="6" Grid.Column="0" Margin="0,5"/>
+                                        <TextBox x:Name="txtUserBitPointer" Grid.Row="6" Grid.Column="1" Margin="0,5"/>
+                                        <TextBlock Text="User Bit Count (example: 1)" Grid.Row="7" Grid.Column="0" Margin="0,5"/>
+                                        <TextBox x:Name="txtUserBitCount" Grid.Row="7" Grid.Column="1" Margin="0,5"/>
+                                    </Grid>
+
+                                    <Separator Margin="0,10"/>
+
+                                    <CheckBox x:Name="chkAdvancedEnableFiltering" Content="Activate Advanced EPC Filtering for 96 Bits (max 5 hex numbers)" Margin="0,10"/>
+
+                                    <WrapPanel Margin="0" Name="HexInputWrapPanel" Orientation="Horizontal" Width="507">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox Name="TextBox1" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox2" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox3" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox4" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                        </StackPanel>
+
+                                        <Rectangle Width="10"/>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox Name="TextBox5" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox6" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox7" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox8" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                        </StackPanel>
+
+                                        <Rectangle Width="10"/>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox Name="TextBox9" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox10" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox11" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox12" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                        </StackPanel>
+
+                                        <Rectangle Width="10"/>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox Name="TextBox13" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox14" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox15" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox16" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                        </StackPanel>
+
+                                        <Rectangle Width="10"/>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox Name="TextBox17" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox18" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox19" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox20" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                        </StackPanel>
+
+                                        <Rectangle Width="10"/>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox Name="TextBox21" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox22" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox23" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                            <TextBox Name="TextBox24" Width="15" Margin="2" MaxLength="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                                     PreviewTextInput="HexInput_PreviewTextInput" TextChanged="HexInput_TextChanged" PreviewKeyDown="HexInput_PreviewKeyDown"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <Border Grid.Row="1" BorderBrush="#FFB197FC" BorderThickness="1" CornerRadius="6" Padding="10" Margin="20,0,20,20">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="SaveButton" Content="Save Settings" Width="140" Height="30" Margin="0,0,5,0" Click="SaveButton_Click"/>
+                <Button x:Name="ClearButton" Content="Clear Settings" Width="140" Height="30" Margin="0,0,5,0" Click="ClearButton_Click"/>
+                <Button Content="Close" Width="100" Height="30" IsCancel="True"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

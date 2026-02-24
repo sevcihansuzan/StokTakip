@@ -1,0 +1,121 @@
+﻿<Window x:Class="SideBar_Nav.Windows.UrunGuncelle"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        BorderBrush="#FFB197FC" BorderThickness="1" 
+        Title="UrunGuncelle" Height="850" Width="500" WindowStartupLocation="CenterScreen">
+    <ScrollViewer>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <!-- Dinamik satırlar (22 alan + 1 buton) -->
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Satırlar -->
+            <TextBlock Text="EPC:" Grid.Row="0" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="txtEPC" Grid.Row="0" Grid.Column="1" Margin="5" IsEnabled="False"/>
+
+            <TextBlock Text="Barkod No:" Grid.Row="1" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="txtBarkodNo" Grid.Row="1" Grid.Column="1" Margin="5"/>
+
+            <TextBlock Text="Bandil No:" Grid.Row="2" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="txtBandilNo" Grid.Row="2" Grid.Column="1" Margin="5"/>
+
+            <TextBlock Text="Plaka No:" Grid.Row="3" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="txtPlakaNo" Grid.Row="3" Grid.Column="1" Margin="5"/>
+
+            <TextBlock Text="Ürün Tipi:" Grid.Row="4" Grid.Column="0" Margin="5"/>
+            <ComboBox x:Name="cmbUrunTipi" Grid.Row="4" Grid.Column="1" Margin="5">
+                <ComboBoxItem Content="Yarı Mamül"/>
+                <ComboBoxItem Content="Bitmiş Mamül"/>
+            </ComboBox>
+
+            <TextBlock Text="Ürün Türü:" Grid.Row="5" Grid.Column="0" Margin="5"/>
+            <ComboBox x:Name="cmbUrunTuru"
+          Grid.Row="5" Grid.Column="1" Margin="5"
+          DisplayMemberPath="UrunTuru"
+          SelectedValuePath="YogunlukKatsayisi"
+          SelectionChanged="cmbUrunTuru_SelectionChanged"/>
+
+
+            <TextBlock Text="Yüzey İşlemi:" Grid.Row="6" Grid.Column="0" Margin="5"/>
+            <ComboBox x:Name="cmbYuzeyIslemi" Grid.Row="6" Grid.Column="1" Margin="5">
+                <ComboBoxItem Content="Polished"/>
+                <ComboBoxItem Content="Honed"/>
+                <ComboBoxItem Content="Tumbled"/>
+            </ComboBox>
+
+            <TextBlock Text="Seleksiyon:" Grid.Row="7" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="txtSeleksiyon" Grid.Row="7" Grid.Column="1" Margin="5"/>
+
+            <TextBlock Text="Üretim Tarihi:" Grid.Row="8" Grid.Column="0" Margin="5"/>
+            <DatePicker x:Name="dateUretimTarihi" Grid.Row="8" Grid.Column="1" Margin="5"/>
+
+            <TextBlock Text="Kalınlık (mm):" Grid.Row="9" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="txtKalınlık" Grid.Row="9" Grid.Column="1" Margin="5" TextChanged="AlanTonajOtomatikHesapla"/>
+
+            <TextBlock Text="Stok En (cm):" Grid.Row="10" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="txtStokEn" Grid.Row="10" Grid.Column="1" Margin="5" TextChanged="AlanTonajOtomatikHesapla"/>
+
+            <TextBlock Text="Stok Boy (cm):" Grid.Row="11" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="txtStokBoy" Grid.Row="11" Grid.Column="1" Margin="5" TextChanged="AlanTonajOtomatikHesapla"/>
+
+            <TextBlock Text="Stok Alan (m²):" Grid.Row="12" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="txtStokAlan" Grid.Row="12" Grid.Column="1" Margin="5" IsReadOnly="True"/>
+
+            <TextBlock Text="Stok Tonaj (kg):" Grid.Row="13" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="txtStokTonaj" Grid.Row="13" Grid.Column="1" Margin="5" IsReadOnly="True"/>
+
+            <TextBlock Text="Plaka Adedi:" Grid.Row="18" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="txtPlakaAdedi" Grid.Row="18" Grid.Column="1" Margin="5" TextChanged="AlanTonajOtomatikHesapla"/>
+
+            <TextBlock Text="Durum:" Grid.Row="19" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="txtDurum" Grid.Row="19" Grid.Column="1" Margin="5" IsReadOnly="True"/>
+
+            <TextBlock Text="Rezervasyon No:" Grid.Row="20" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="txtRezervasyonNo" Grid.Row="20" Grid.Column="1" Margin="5" IsReadOnly="True"/>
+
+            <TextBlock Text="Kaydeden Personel:" Grid.Row="21" Grid.Column="0" Margin="5"/>
+            <TextBox x:Name="txtKaydedenPersonel" Grid.Row="21" Grid.Column="1" Margin="5" IsReadOnly="True"/>
+
+            <TextBlock Text="Ürün Çıkış Tarihi:" Grid.Row="22" Grid.Column="0" Margin="5"/>
+            <DatePicker x:Name="dateUrunCikisTarihi" Grid.Row="22" Grid.Column="1" Margin="5"/>
+            
+            <!-- Combobox olmalı bu kısım -->
+            <TextBlock Text="Alıcı Firma:" Grid.Row="23" Grid.Column="0" Margin="5"/> 
+            <TextBox x:Name="txtAliciFirma" Grid.Row="23" Grid.Column="1" Margin="5" IsReadOnly="True"/>
+
+            <!-- Buton -->
+            <StackPanel Grid.Row="24" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10">
+                <Button Content="Güncelle" Width="150" Click="BtnGuncelle_Click"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

@@ -1,0 +1,90 @@
+﻿<Window x:Class="SideBar_Nav.Windows.UrunStokWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Stoktan Ürün Seç"
+        Height="800" Width="1622"
+        WindowStartupLocation="CenterScreen"
+        BorderBrush="#FFB197FC" BorderThickness="1">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Filtre Alanı -->
+        <Border BorderBrush="#B197FC" BorderThickness="2" CornerRadius="5" Padding="8" Grid.Row="0">
+            <!-- Yatayda taşmayı önlemek için WrapPanel -->
+            <WrapPanel ItemHeight="56" ItemWidth="170">
+                <!-- EPC -->
+                <StackPanel Margin="5,0,0,0">
+                    <TextBlock Text="EPC:" FontWeight="Bold"/>
+                    <TextBox x:Name="txtFiltreEPC" Width="160" Height="24"/>
+                </StackPanel>
+
+                <!-- Barkod -->
+                <StackPanel Margin="5,0,0,0">
+                    <TextBlock Text="Barkod No:" FontWeight="Bold"/>
+                    <TextBox x:Name="txtFiltreBarkod" Width="160" Height="24"/>
+                </StackPanel>
+
+                <!-- Bandıl -->
+                <StackPanel Margin="5,0,0,0">
+                    <TextBlock Text="Bandıl No:" FontWeight="Bold"/>
+                    <TextBox x:Name="txtFiltreBandil" Width="160" Height="24"/>
+                </StackPanel>
+
+                <!-- Plaka -->
+                <StackPanel Margin="5,0,0,0">
+                    <TextBlock Text="Plaka No:" FontWeight="Bold"/>
+                    <TextBox x:Name="txtFiltrePlaka" Width="160" Height="24"/>
+                </StackPanel>
+
+                <!-- Ürün Tipi -->
+                <StackPanel Margin="5,0,0,0">
+                    <TextBlock Text="Ürün Tipi:" FontWeight="Bold"/>
+                    <ComboBox x:Name="cmbUrunTipi" Width="160" Height="24"/>
+                </StackPanel>
+
+                <!-- Ürün Türü -->
+                <StackPanel Margin="5,0,0,0">
+                    <TextBlock Text="Ürün Türü:" FontWeight="Bold"/>
+                    <ComboBox x:Name="cmbUrunTuru" Width="160" Height="24"/>
+                </StackPanel>
+
+                <!-- Yüzey İşlemi -->
+                <StackPanel Margin="5,0,0,0">
+                    <TextBlock Text="Yüzey İşlemi:" FontWeight="Bold"/>
+                    <ComboBox x:Name="cmbYuzeyIslem" Width="160" Height="24"/>
+                </StackPanel>
+
+                <!-- Üretim Tarihi -->
+                <StackPanel Margin="5,0,0,0">
+                    <TextBlock Text="Üretim Tarihi:" FontWeight="Bold"/>
+                    <DatePicker x:Name="dateUretimTarihi" Width="170" Height="24"/>
+                </StackPanel>
+
+                <!-- Yenile -->
+                <StackPanel Margin="10,16,0,0" VerticalAlignment="Bottom">
+                    <Button Content="Yenile" Width="90" Height="28" Click="BtnYenile_Click"/>
+                </StackPanel>
+            </WrapPanel>
+        </Border>
+
+        <!-- DataGrid -->
+        <DataGrid x:Name="dataGridStok"
+                  Grid.Row="1"
+                  AutoGenerateColumns="True"
+                  SelectionMode="Extended"
+                  SelectionUnit="FullRow"
+                  IsReadOnly="True"
+                  Margin="0,10,0,10" />
+
+        <!-- Buton -->
+        <Button Content="Seçili Ürünü Rezervasyona Ekle"
+                Grid.Row="2"
+                Height="40" Width="280"
+                HorizontalAlignment="Right"
+                Click="BtnEkle_Click"/>
+    </Grid>
+</Window>

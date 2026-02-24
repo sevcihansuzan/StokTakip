@@ -1,0 +1,70 @@
+<Window x:Class="SideBar_Nav.Windows.SatisRaporWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        BorderBrush="#FFB197FC" BorderThickness="1"
+        Title="Satış Raporu Önizleme" Height="720" Width="1200">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="SATIŞ RAPORU" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
+
+            <UniformGrid Columns="3" Margin="0,0,0,10">
+                <StackPanel Orientation="Horizontal" Margin="0,0,10,5">
+                    <TextBlock Text="Kayıt Sayısı:" FontWeight="Bold" Margin="0,0,5,0" />
+                    <TextBlock x:Name="lblRecordCount" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,10,5">
+                    <TextBlock Text="Periyot:" FontWeight="Bold" Margin="0,0,5,0" />
+                    <TextBlock x:Name="lblSelection" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,10,5">
+                    <TextBlock Text="Tarih Aralığı:" FontWeight="Bold" Margin="0,0,5,0" />
+                    <TextBlock x:Name="lblPeriod" TextWrapping="Wrap" />
+                </StackPanel>
+            </UniformGrid>
+
+            <UniformGrid Columns="2" Margin="0,0,0,10">
+                <StackPanel Margin="0,0,10,5">
+                    <TextBlock Text="PDF Oluşturma:" FontWeight="Bold" Margin="0,0,5,0" />
+                    <TextBlock x:Name="lblPdfGeneratedAt" />
+                    <TextBlock Text="PDF Dosya:" FontWeight="Bold" Margin="10,8,5,0" />
+                    <TextBlock x:Name="lblPdfFileName" TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+                <StackPanel Margin="0,0,10,5">
+                    <TextBlock Text="Excel Oluşturma:" FontWeight="Bold" Margin="0,0,5,0" />
+                    <TextBlock x:Name="lblExcelGeneratedAt" />
+                    <TextBlock Text="Excel Dosya:" FontWeight="Bold" Margin="10,8,5,0" />
+                    <TextBlock x:Name="lblExcelFileName" TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+            </UniformGrid>
+
+            <StackPanel>
+                <TextBlock Text="Filtreler:" FontWeight="Bold" />
+                <TextBlock x:Name="lblFilters" TextWrapping="Wrap" />
+            </StackPanel>
+        </StackPanel>
+
+        <WrapPanel Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,0,10">
+            <Button x:Name="btnRefresh" Content="Yenile" Width="110" Height="30" Margin="0,0,10,0" Click="BtnRefresh_Click" />
+            <Button x:Name="btnDownloadPdf" Content="PDF İndir" Width="110" Height="30" Margin="0,0,10,0" Click="BtnDownloadPdf_Click" />
+            <Button x:Name="btnPrintPdf" Content="PDF Yazdır" Width="110" Height="30" Margin="0,0,10,0" Click="BtnPrintPdf_Click" />
+            <Button x:Name="btnDownloadExcel" Content="Excel İndir" Width="110" Height="30" Click="BtnDownloadExcel_Click" />
+        </WrapPanel>
+
+        <Border Grid.Row="2" BorderBrush="#FFB197FC" BorderThickness="1">
+            <TabControl>
+                <TabItem Header="PDF Önizleme">
+                    <WebBrowser x:Name="pdfBrowser" />
+                </TabItem>
+                <TabItem Header="Excel Önizleme">
+                    <WebBrowser x:Name="excelBrowser" />
+                </TabItem>
+            </TabControl>
+        </Border>
+    </Grid>
+</Window>

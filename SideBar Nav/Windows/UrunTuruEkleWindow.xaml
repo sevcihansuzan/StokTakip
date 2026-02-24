@@ -1,0 +1,95 @@
+﻿<Window x:Class="SideBar_Nav.Windows.UrunTuruEkleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStartupLocation="CenterScreen"
+        BorderBrush="#FFB197FC" BorderThickness="1" 
+        Title="Ürün Türü Yönetimi" Height="450" Width="480" ResizeMode="NoResize" >
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Yeni ürün türü ekleme alanı -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+
+            <!-- Ürün türü -->
+            <Grid Width="160" Margin="0,0,10,0">
+                <TextBox x:Name="txtUrunTuru"
+                 VerticalContentAlignment="Center"
+                 Padding="8"/>
+                <!-- Placeholder -->
+                <TextBlock Text="Ürün türü"
+                   Foreground="#9CA3AF"
+                   Margin="8,0,0,0"
+                   VerticalAlignment="Center"
+                   IsHitTestVisible="False">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Text, ElementName=txtUrunTuru}" Value=""/>
+                                        <Condition Binding="{Binding IsKeyboardFocused, ElementName=txtUrunTuru}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <!-- Yoğunluk katsayısı -->
+            <Grid Width="100" Margin="0,0,10,0">
+                <TextBox x:Name="txtYogunluk"
+                 VerticalContentAlignment="Center"
+                 Padding="8"/>
+                <!-- Placeholder -->
+                <TextBlock Text="Yoğunluk"
+                   Foreground="#9CA3AF"
+                   Margin="8,0,0,0"
+                   VerticalAlignment="Center"
+                   IsHitTestVisible="False">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Text, ElementName=txtYogunluk}" Value=""/>
+                                        <Condition Binding="{Binding IsKeyboardFocused, ElementName=txtYogunluk}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <Button Content="Ekle" Width="80" Click="BtnEkle_Click"/>
+        </StackPanel>
+
+
+        <!-- DataGrid -->
+        <DataGrid x:Name="dataGridUrunTurleri" Grid.Row="1" AutoGenerateColumns="False"
+                  CanUserAddRows="False" IsReadOnly="False"
+                  CellEditEnding="DataGridUrunTurleri_CellEditEnding" SelectionMode="Single"
+                  Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Ürün Türü" Binding="{Binding UrunTuru}" Width="*"/>
+                <DataGridTextColumn Header="Yoğunluk Katsayısı" Binding="{Binding YogunlukKatsayisi}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Alt butonlar -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+            <Button Content="Yenile" Width="80" Margin="0,0,10,0" Click="BtnYenile_Click"/>
+            <Button Content="Sil" Width="80" Click="BtnSil_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

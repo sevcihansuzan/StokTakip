@@ -1,0 +1,404 @@
+﻿<Page x:Class="SideBar_Nav.Pages.KullaniciYonetimi"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:services="clr-namespace:SideBar_Nav.Services"
+      mc:Ignorable="d"
+      d:DesignHeight="900" d:DesignWidth="1600"
+      Title="Kullanıcı Yönetimi">
+    <Grid>
+        <!-- ARKA PLAN: Image -->
+        <Image Source="/Images/marble.jpg"
+               Grid.RowSpan="3"
+               Stretch="Fill"
+               IsHitTestVisible="False"
+               Panel.ZIndex="-1"
+               RenderOptions.BitmapScalingMode="HighQuality"
+               SnapsToDevicePixels="True"
+               UseLayoutRounding="True">
+            <Image.CacheMode>
+                <BitmapCache/>
+            </Image.CacheMode>
+        </Image>
+        <!-- Dikey taşmalarda kaydırma; yatayda taşmayı engelle -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+               HorizontalScrollBarVisibility="Disabled">
+            <Grid 
+           UseLayoutRounding="True"
+           SnapsToDevicePixels="True">
+
+                <!-- Üst/içerik + alt not satırı -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- === İKİ SÜTUN DÜZEN === -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <!-- Sol sütun -->
+                        <ColumnDefinition Width="*" MinWidth="540"/>
+                        <!-- Sağ sütun -->
+                        <ColumnDefinition Width="1.5*" MinWidth="640"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- ========== SOL SÜTUN ========== -->
+                    <Grid Grid.Column="0" Margin="16">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- Üst bar -->
+                            <RowDefinition Height="*"/>
+                            <!-- Liste -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- Detay / Yetkiler / Butonlar -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Başlık + arama barı -->
+                        <DockPanel Grid.Row="0" LastChildFill="False" Margin="0,0,0,8">
+                            <TextBlock DockPanel.Dock="Left"
+                                Text="Yönetici Paneli"
+                                FontSize="32" FontWeight="SemiBold"
+                                Foreground="#111827"
+                                Margin="10,0,0,0"/>
+
+                            <!-- Arama kontrolleri sağa yanaşsın, dar alanda wrap yapsın -->
+                            <WrapPanel DockPanel.Dock="Right"
+                                HorizontalAlignment="Right"
+                                Margin="0,6,10,0">
+                                <!-- TextBox + Placeholder -->
+                                <Grid Width="220" Height="32" Margin="0,0,9,9">
+                                    <TextBox x:Name="txtSearch"
+                                      VerticalContentAlignment="Center"
+                                      Padding="8"/>
+                                    <TextBlock Text="Ara: ad, e-posta, telefon…"
+                                        Foreground="#9CA3AF"
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center"
+                                        IsHitTestVisible="False">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding Text, ElementName=txtSearch}" Value=""/>
+                                                            <Condition Binding="{Binding IsKeyboardFocused, ElementName=txtSearch}" Value="False"/>
+                                                        </MultiDataTrigger.Conditions>
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </MultiDataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+
+                                <Button x:Name="btnRefresh"
+                                 Content="Ara"
+                                 Padding="14,6"
+                                 Height="32"
+                                 Margin="0,0,0,9"
+                                 Click="btnRefresh_Click"/>
+                            </WrapPanel>
+                        </DockPanel>
+
+                        <!-- Kullanıcı listesi -->
+                        <Border Grid.Row="1"
+                         Margin="0,0,0,8"
+                         Background="White"
+                         CornerRadius="12"
+                         Padding="7"
+                         BorderBrush="#FFB197FC"
+                         BorderThickness="1">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#B197FC" BlurRadius="12" ShadowDepth="2"/>
+                            </Border.Effect>
+                            <Grid>
+                                <DataGrid x:Name="dgUsers"
+                                   ItemsSource="{Binding Users}"
+                                   AutoGenerateColumns="False"
+                                   CanUserAddRows="False"
+                                   SelectionMode="Single"
+                                   SelectionChanged="dgUsers_SelectionChanged"
+                                   HeadersVisibility="Column"
+                                   GridLinesVisibility="Horizontal"
+                                   RowHeaderWidth="0"
+                                   IsReadOnly="True">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Ad"      Binding="{Binding Ad}"     Width="*"/>
+                                        <DataGridTextColumn Header="Pozisyon"   Binding="{Binding Pozisyon}"  Width="*"/>
+                                        <DataGridTextColumn Header="E-posta" Binding="{Binding Email}"  Width="2*"/>
+                                        <DataGridTextColumn Header="Telefon" Binding="{Binding Phone}"  Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <!-- Genel busy overlay -->
+                                <Border x:Name="busyOverlay"
+                                 Background="#80000000"
+                                 Visibility="Collapsed"
+                                 CornerRadius="8">
+                                    <StackPanel VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         Background="#111827"
+                                         Opacity="0.95"
+                                         >
+                                        <TextBlock Text="İşlem yapılıyor..."
+                                            Foreground="White"
+                                            FontWeight="SemiBold"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <!-- Detay + Yetkiler + Alt butonlar (YENİ) -->
+                        <Border Grid.Row="2"
+                                
+     Background="White"
+     CornerRadius="12"
+     BorderBrush="#FFB197FC"
+     BorderThickness="1"
+     Padding="16">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#B197FC" BlurRadius="12" ShadowDepth="2"/>
+                            </Border.Effect>
+                            
+                            <Grid>
+                                
+                                <!-- Sol: bilgiler+yetkiler | Sağ: avatar kartı -->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="280" />
+                                    <!-- avatar kartı genişliği -->
+                                </Grid.ColumnDefinitions>
+
+                                <!-- ========== SOL TARAF: Form + Zaman Damgaları + Yetkiler + Butonlar ========== -->
+                                <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                                    <!-- Temel bilgiler -->
+                                    <Grid Margin="0,0,0,12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                                            <TextBlock Text="E-posta" Foreground="#6b7280"/>
+                                            <TextBox x:Name="txtEmail" IsReadOnly="True"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                                            <TextBlock Text="Telefon" Foreground="#6b7280"/>
+                                            <TextBox x:Name="txtPhone" IsReadOnly="True"/>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <Grid Margin="0,0,0,12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                                            <TextBlock Text="Ad" Foreground="#6b7280"/>
+                                            <TextBox x:Name="txtAd" IsReadOnly="True"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                                            <TextBlock Text="Pozisyon" Foreground="#6b7280"/>
+                                            <TextBox x:Name="txtPozisyon"/>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <!-- Zaman damgaları -->
+                                    <Grid Margin="0,0,0,12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                                            <TextBlock Text="Oluşturma" Foreground="#6b7280"/>
+                                            <TextBox x:Name="txtCreated" IsReadOnly="True" Background="#f9fafb"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1" Margin="8,0,8,0">
+                                            <TextBlock Text="Güncelleme" Foreground="#6b7280"/>
+                                            <TextBox x:Name="txtUpdated" IsReadOnly="True" Background="#f9fafb"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="2" Margin="8,0,0,0">
+                                            <TextBlock Text="Son Giriş" Foreground="#6b7280"/>
+                                            <TextBox x:Name="txtLastSignIn" IsReadOnly="True" Background="#f9fafb"/>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <!-- Yetkiler -->
+                                    <GroupBox Header="Yetkiler" Padding="8">
+                                        <UniformGrid Columns="2">
+                                            <CheckBox x:Name="chkAdmin"              Content="Admin"              Margin="0,0,12,8"/>
+                                            <CheckBox x:Name="chkUserSettings"       Content="Gelişmiş Ayarlar"   Margin="0,0,12,8"/>
+
+                                            <CheckBox x:Name="chkUrunTakip"          Content="Ürün Takip"         Margin="0,0,12,8"/>
+                                            <CheckBox x:Name="chkStokYonetimi"       Content="Stok Yönetimi"      Margin="0,0,12,8"/>
+                                            <CheckBox x:Name="chkSevkiyat"           Content="Sevkiyat"           Margin="0,0,12,8"/>
+
+                                            <CheckBox x:Name="chkSatisYonetimi"      Content="Satış Onay"         Margin="0,0,12,8"/>
+                                            <CheckBox x:Name="chkRezOlustur"         Content="Rezervasyon"        Margin="0,0,12,8"/>
+                                            <CheckBox x:Name="chkKalite"             Content="Kalite Kontrol"     Margin="0,0,12,8"/>
+
+                                            <CheckBox x:Name="chkIptal"              Content="İptal"              Margin="0,0,12,8"/>
+                                            <CheckBox x:Name="chkGpioOps"            Content="GPIO"               Margin="0,0,12,8"/>
+                                            <CheckBox x:Name="chkReading"            Content="Teknik Panel"       Margin="0,0,12,8"/>
+
+                                            <CheckBox x:Name="chkPersonel"           Content="Personel Bilgileri" Margin="0,0,12,8"/>
+                                            <CheckBox x:Name="chkUretim"           Content="Uretim" Margin="0,0,12,8"/>
+                                        </UniformGrid>
+                                    </GroupBox>
+
+                                    <!-- Alt durum + butonlar -->
+                                    <Grid Margin="0,0,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock x:Name="lblStatus"
+                Grid.Row="0"
+                VerticalAlignment="Center"
+                Foreground="#ef4444"
+                FontWeight="SemiBold"/>
+
+                                        <WrapPanel  Grid.Row="1" HorizontalAlignment="Right" Margin="0,8,0,0">
+                                            <Button x:Name="btnGrantAll"  Content="Hepsini Ver" Margin="0,0,8,8" Padding="14,6" Click="btnGrantAll_Click"/>
+                                            <Button x:Name="btnRevokeAll" Content="Hepsini Al"  Margin="0,0,8,8" Padding="14,6" Click="btnRevokeAll_Click"/>
+                                            <Button x:Name="btnSave"      Content="Kaydet"      Margin="0,0,0,8"  Padding="14,6" Background="#2563eb" Foreground="White" Click="btnSave_Click"/>
+                                        </WrapPanel>
+                                    </Grid>
+                                </StackPanel>
+
+                                <!-- ========== SAĞ TARAF: Avatar Kartı ========== -->
+                                <Border Grid.Column="1" Grid.Row="0"
+         CornerRadius="16"
+         BorderBrush="#e5e7eb"
+         BorderThickness="1"
+         Background="#f9fafb"
+         Padding="16"
+         VerticalAlignment="Top">
+                                    <StackPanel>
+                                        <TextBlock Text="Profil Fotoğrafı"
+                FontWeight="SemiBold"
+                Foreground="#374151"
+                Margin="0,0,0,12"/>
+
+                                        <!-- Daire içinde görsel + ince halka -->
+                                        <Grid Width="180" Height="180" HorizontalAlignment="Center">
+                                            <Ellipse Fill="White" />
+                                            <Image x:Name="imgSelectedAvatar"
+              Stretch="UniformToFill"
+              RenderOptions.BitmapScalingMode="HighQuality">
+                                                <Image.Clip>
+                                                    <EllipseGeometry Center="90,90" RadiusX="90" RadiusY="90"/>
+                                                </Image.Clip>
+                                            </Image>
+                                            <Ellipse Stroke="#e5e7eb" StrokeThickness="2"/>
+                                        </Grid>
+
+                                        <!-- Alt bilgi -->
+                                        <StackPanel Margin="0,12,0,0" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding SelectedUser.Ad, RelativeSource={RelativeSource AncestorType=Page}}"
+                  FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding SelectedUser.Email, RelativeSource={RelativeSource AncestorType=Page}}"
+                  Opacity="0.7" FontSize="12"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                    </Grid>
+
+                    <!-- ========== SAĞ SÜTUN: LOG FİLTRE + LİSTE ========== -->
+                    <Border Grid.Column="1"
+                     Margin="16"
+                     Background="White"
+                     CornerRadius="12"
+                     Padding="10"
+                     BorderBrush="#FFB197FC"
+                     BorderThickness="1">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#B197FC" BlurRadius="12" ShadowDepth="2"/>
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- WrapPanel: dar alanda filtreler ikinci satıra düşer -->
+                            <WrapPanel Grid.Row="0" Margin="8">
+                                <DatePicker x:Name="dpLogDate" Width="120" Margin="0,0,10,10"/>
+                                <ComboBox x:Name="cbDateRange" Width="120" Margin="0,0,10,10">
+                                    <ComboBoxItem Content="Günlük" Tag="Daily" IsSelected="True"/>
+                                    <ComboBoxItem Content="Aylık"  Tag="Monthly"/>
+                                    <ComboBoxItem Content="Yıllık" Tag="Yearly"/>
+                                </ComboBox>
+
+                                <ComboBox x:Name="cbPersonelFilter"
+                                   Width="240"
+                                   Margin="0,0,10,10"
+                                   ItemsSource="{Binding Users}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                         <Run Text="{Binding Ad}"/><Run Text=" "/>
+                                         <Run Text="{Binding Pozisyon}"/><Run Text=" — "/>
+                                         <Run Text="{Binding Email}"/>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+
+                                <ComboBox x:Name="cbEylemFilter"
+                                   Width="170"
+                                   Margin="0,0,10,10"
+                                   ItemsSource="{Binding LogEylemleri}"
+                                   DisplayMemberPath="Eylem"/>
+                                <TextBox  x:Name="txtDetayFilter" Width="200" Margin="0,0,10,10"/>
+                                <Button   x:Name="btnLogFilter" Content="Ara" Padding="14,6" Height="32"
+                                   Margin="0,0,0,10"
+                                   Click="btnLogFilter_Click"/>
+                            </WrapPanel>
+
+                            <!-- Log listesi -->
+                            <DataGrid x:Name="dgLogs"
+                               Grid.Row="1"
+                               ItemsSource="{Binding Source={x:Static services:ActivityLogger.Logs}}"
+                               AutoGenerateColumns="False"
+                               CanUserAddRows="False"
+                               IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Log ID"   Binding="{Binding Id}"     Width="80"/>
+                                    <DataGridTextColumn Header="Personel" Binding="{Binding Personel}" Width="*"/>
+                                    <DataGridTextColumn Header="Eylem"    Binding="{Binding Eylem}"    Width="*"/>
+                                    <DataGridTextColumn Header="Detay"    Binding="{Binding Detay}"    Width="2*"/>
+                                    <DataGridTextColumn Header="Zaman"    Binding="{Binding Zaman}"    Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!-- ALT BAR: küçük not -->
+                <Border Grid.Row="1"
+                 Background="White"
+                 Padding="8"
+                 BorderBrush="#e5e7eb"
+                 BorderThickness="1,1,1,0">
+                    <TextBlock Text="Not: Liste çok genişse arama kullanın. Değişikliklerden sonra Kaydet'i unutmayın."
+                        Foreground="#6b7280"/>
+                </Border>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+   
+</Page>
